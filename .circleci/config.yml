@@ -42,6 +42,7 @@ jobs:
     # env var assignments
         environment:
           MYSQL_ROOT_PASSWORD: letmein2
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: appdb
           MYSQL_USER: root
           TEST_RESULTS: /tmp/test-results # path to where test results will be saved    
