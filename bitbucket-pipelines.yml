@@ -1,0 +1,35 @@
+
+image: golang
+
+pipelines:
+  default:
+  - step:
+      name: install dependencies and building go-demo 
+      script:
+
+        - go get github.com/gorilla/mux 
+        - go get -u gorm.io/gorm
+        - go get -u gorm.io/driver/mysql
+        - go get github.com/joho/godotenv
+        - cd src/go-demo
+        - go mod init go-demo
+        - go mod tidy
+        - go build
+        - go test go-demo/api/test
+
+      caches:
+          - gomodules #cache is defined in the definitions section 
+      services:
+          - postgres
+
+definitions:
+  caches:
+    gomodules: vendor/gomodules
+  services:
+    postgres:
+      image: postgres
+      environment:
+        POSTGRES_DB: go-demoDB
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: letmein2      
+

@@ -1,0 +1,18 @@
+go-demoService:
+  build:
+    image: go-demo
+    dockerfile: Dockerfile_For_Setup
+  cached: true
+  volumes:
+    - ./tmp/code:/code 
+adddocker:
+  build:
+    image: realmethods/go-demo
+    dockerfile: Dockerfile_For_CodeShip
+  volumes_from:
+    - go-demoService
+terraform:
+  build:
+    dockerfile: Dockerfile_For_Terraform
+  volumes_from:
+    - go-demoService

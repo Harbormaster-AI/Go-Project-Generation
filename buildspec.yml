@@ -1,0 +1,38 @@
+version: 0.2
+env:
+  variables:
+
+phases:
+  install:
+    runtime-versions:
+        golang: 1.15  
+    commands:
+
+
+      - go get github.com/gorilla/mux  
+      - go get -u gorm.io/gorm 
+      - go get -u gorm.io/driver/mysql 
+      - go get github.com/joho/godotenv 
+    finally:
+      - echo Install phase complete...
+  build:
+    commands:
+      - cd src/go-demo 
+      - go mod init go-demo 
+      - go mod tidy 
+      - go build 
+      - go test go-demo/api/test 
+  post_build:
+    commands:
+      - echo Building Docker Image...
+      - cd ${CODEBUILD_SRC_DIR}
+      - docker login --username tylertravismya --password 69cutlass
+      - docker build -t theharbormaster/go-demo:latest .
+      - docker push theharbormaster/go-demo:latest 
+
+
+artifacts:
+artifacts:
+  files:
+    - app
+    - buildspec.yml

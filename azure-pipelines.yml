@@ -1,0 +1,17 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo initializing...
+  displayName: 'Initializing...'
+- script: go get github.com/gorilla/mux 
+- script: go get -u gorm.io/gorm
+- script: go get -u gorm.io/driver/mysql
+- script: go get github.com/joho/godotenv
+- script: echo building...
+- script: cd src/go-demo
+- script: go mod init go-demo
+- script: go mod tidy
+- script: go build
+- script: go test go-demo/api/test
+
