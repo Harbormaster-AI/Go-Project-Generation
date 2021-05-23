@@ -41,10 +41,10 @@ jobs:
 
     # env var assignments
         environment:
-            MYSQL_DATABASE: go-demoDB
-            MYSQL_ALLOW_EMPTY_PASSWORD: yes
-            MYSQL_ROOT_PASSWORD: ${dbPassword}
-            TEST_RESULTS: /tmp/test-results # path to where test results will be saved    
+          MYSQL_ROOT_PASSWORD: letmein2
+          MYSQL_DATABASE: go-demo
+          MYSQL_USER: root
+          TEST_RESULTS: /tmp/test-results # path to where test results will be saved    
 
     # steps the core build test job
     steps:
