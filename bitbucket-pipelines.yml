@@ -1,0 +1,35 @@
+
+image: golang
+
+pipelines:
+  default:
+  - step:
+      name: install dependencies and building godemo 
+      script:
+
+        - go get github.com/gorilla/mux 
+        - go get -u gorm.io/gorm
+        - go get -u gorm.io/driver/mysql
+        - go get github.com/joho/godotenv
+        - cd src/godemo
+        - go mod init godemo
+        - go mod tidy
+        - go build
+        - go test godemo/api/test
+
+      caches:
+          - gomodules #cache is defined in the definitions section 
+      services:
+          - postgres
+
+definitions:
+  caches:
+    gomodules: vendor/gomodules
+  services:
+    postgres:
+      image: postgres
+      environment:
+        POSTGRES_DB: godemoDB
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: letmein2      
+

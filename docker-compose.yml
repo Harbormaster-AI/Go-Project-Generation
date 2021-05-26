@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    image:mysql:latest
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 6969Cutlass%21%2100Corvette%21%21
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_PASSWORD:  6969Cutlass%21%2100Corvette%21%21
+      MYSQL_DATABASE: godemo
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+
+  platform:
+    image: theharbormaster/go-demo:latest
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    links:
+      - db
+
